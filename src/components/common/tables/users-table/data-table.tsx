@@ -16,15 +16,19 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { UserAdd } from "../../user-add"
+import { KeyedMutator } from "swr"
+import { AxiosResponse } from "axios"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  data: TData[],
+  mutate: KeyedMutator<AxiosResponse<any, any>>
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  mutate
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -80,7 +84,7 @@ export function DataTable<TData, TValue>({
       
     </div>
     <div className="w-full  flex justify-end items-center h-[10px]">
-    <UserAdd />
+    <UserAdd mutate={mutate}/>
   </div>
   </>
   )

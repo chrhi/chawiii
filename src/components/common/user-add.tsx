@@ -13,9 +13,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { addNewUser, useUser } from "@/lib/hooks/use-user"
+import { addNewUser } from "@/lib/hooks/use-user"
 import { useState } from "react"
 import { Textarea } from "../ui/textarea"
+
 
 import {
     Select,
@@ -26,8 +27,17 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
+import { KeyedMutator } from "swr"
+import { AxiosResponse } from "axios"
+import { useToast } from "../ui/use-toast"
 
-export function UserAdd() {
+type Props = {
+    mutate: KeyedMutator<AxiosResponse<any, any>>
+  }
+
+export function UserAdd({mutate}:Props) {
+
+    const {toast} = useToast()
 
     const [inputs , setInputs] = useState({
         name : "",
@@ -36,7 +46,7 @@ export function UserAdd() {
         bio : "",
         type : "client",
     })
-    const {mutate} = useUser()
+  
 
     const handleSubmit = async  () => {
          addNewUser({
@@ -46,6 +56,9 @@ export function UserAdd() {
             password : inputs.password , 
             type : inputs.type
         }).then(res => {
+          toast({
+            description : `user ${name} has been created`
+          })
           mutate()
         })
     }
