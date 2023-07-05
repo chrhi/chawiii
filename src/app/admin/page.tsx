@@ -4,6 +4,8 @@ import { DataTable } from "@/components/common/tables/users-table/data-table"
 import AdminHeader from "@/components/common/header/admin-header"
 import { prisma } from "@/lib/prisma"
 
+import { useUser } from "@/lib/hooks/use-user"
+
 async function getData() {
   const users = await prisma.user.findMany()
   return users
@@ -22,7 +24,9 @@ export default async function TaskPage() {
 
   const users = await getData()
 
-  const DataFORMATED = users.map(item => {
+  const { mutate , user} = useUser()
+
+  const DataFORMATED = user.map((item: { id: any; name: any; email: any; type: any }) => {
     return{
       id: item.id,
       name : item.name , 

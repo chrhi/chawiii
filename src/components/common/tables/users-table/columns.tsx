@@ -6,6 +6,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 
+import { useUser } from "@/lib/hooks/use-user"
+
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type user = {
@@ -43,6 +45,8 @@ export const columns: ColumnDef<user>[] = [
      
       const setShowModel = openUpdateModel(state =>  state.setShowModel)
       const setUserId = openUpdateModel(state =>  state.setId)
+
+      const {mutate} = useUser()
 
      
  

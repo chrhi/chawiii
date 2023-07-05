@@ -16,11 +16,14 @@ import { useEffect, useState } from "react"
 //     }
 //   }
 export function useUser () {
-  const { data, error, isLoading } = useSWR(`/api/user`, () =>  axios.get('http://localhost:3000/api/users').then((response => {
+
+  const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/api/users" :"https://chawiii.vercel.app/api/users"
+  const { data, error, isLoading , mutate } = useSWR(`/api/user`, () =>  axios.get(url).then((response => {
     return response
  })))
   
   return {
+    mutate , 
     user: data?.data,
     isLoading,
     isError: error
@@ -45,7 +48,7 @@ export const  useSignInUser = async  ({ password , email  }: { password : string
 }
 
 export function useSignin () {
-  const { data, error, isLoading } = useSWR(`/api/user`, () =>  axios.post('http://localhost:3000/api/users', {
+  const { data, error, isLoading } = useSWR(`/api/user`, () =>  axios.post(process.env.NODE_ENV === "development" ? "http://localhost:3000/api/users" :"https://chawiii.vercel.app/api/users", {
 
   }).then((response => {
     return response
@@ -73,6 +76,22 @@ export const  addNewUser = async  ({ password , email , bio , type , name }: {
    bio , 
    type ,
    name
+   }).catch(err => {
+     console.error(err)
+   })
+   return {
+     data : res?.data
+   }
+ }
+
+ export const  deleteUser = async  ({ id }: { 
+  id : string,
+ 
+  }) => {
+
+  const res = await  axios.post(process.env.NODE_ENV === "development" ? "http://localhost:3000/api/users" :"https://chawiii.vercel.app/api/users", {
+   action : "delete user",
+   id
    }).catch(err => {
      console.error(err)
    })

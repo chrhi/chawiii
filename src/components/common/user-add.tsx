@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { addNewUser } from "@/lib/hooks/use-user"
+import { addNewUser, useUser } from "@/lib/hooks/use-user"
 import { useState } from "react"
 import { Textarea } from "../ui/textarea"
 
@@ -36,6 +36,7 @@ export function UserAdd() {
         bio : "",
         type : "client",
     })
+    const {mutate} = useUser()
 
     const handleSubmit = async  () => {
          addNewUser({
@@ -45,7 +46,7 @@ export function UserAdd() {
             password : inputs.password , 
             type : inputs.type
         }).then(res => {
-            window.location.reload()
+          mutate()
         })
     }
 

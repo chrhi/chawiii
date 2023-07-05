@@ -34,7 +34,7 @@ export default function AuthenticationPage() {
               </p>
             </div>
             <UserAuthForm />
-            <Link href="/signup" className="mt-2 text-sm ">or if you dont have an account ? <span className="text-green-500 underline cursor-pointer">sign up</span></Link>
+          
             
           </div>
         </div>
