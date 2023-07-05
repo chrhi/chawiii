@@ -7,7 +7,7 @@ import { DataTable } from "@/components/common/tables/users-table/data-table"
 import axios from 'axios'
 import useSWR from 'swr'
 
-const url = process.env.NODE_ENV === "development" ? "http://localhost:3000/api/users" :"https://chawiii.vercel.app/api/users"
+const url = "https://chawiii.vercel.app/api/users"
 const fetcher = () =>  axios.get(url).then((response => {
   return response
 }))
