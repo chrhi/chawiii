@@ -32,7 +32,7 @@ export const  useSignInUser = async  ({ password , email  }: { password : string
 
 
 
- const res = await  axios.post('http://localhost:3000/api/users', {
+ const res = await  axios.post('https://chawiii.vercel.app/api/users', {
   action : "is user valide",
   email,
   password
