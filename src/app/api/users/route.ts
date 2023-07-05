@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
     console.log("this route is working")
 
-    const {action , email , name , password , id } = await request.json()
+    const {action , email , name , password , id , type } = await request.json()
 
     if(!action ){
       return NextResponse.json({
@@ -26,11 +26,18 @@ export async function POST(request: Request) {
         error : "you need to provide an action"
     })
     } 
+    if(type !== "commercial" || type !== "client"){
+      return NextResponse.json({
+        from : "abdullah ",
+        message : "the api is working",
+        error : "the type can be client or  commercial only"
+    })
+    }
 
     if(action === "add user"){
       const user_just_created  = await prisma.user.create({
         data : {
-          type : "admin", //it can be client or  commercial , 
+          type : type, //it can be client or  commercial , 
           bio : "", 
           email : email, 
           name : name, 

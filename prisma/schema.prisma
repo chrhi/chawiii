@@ -25,9 +25,12 @@ model User {
 
 
 model Report {
-  id        String    @id @default(uuid())
-  title String? 
-  description String?  @db.LongText
-  CreatedAt DateTime  @default(now())
+  id           String    @id @default(uuid())
+  title        String? 
+  ClientInformation String?  @db.LongText
+  Date         DateTime?
+  Details      String?
+  Request      String?
+  CreatedAt    DateTime  @default(now())
   @@index([id])
 }
