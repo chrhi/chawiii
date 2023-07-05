@@ -1,15 +1,15 @@
 import { Metadata } from "next"
-import { columns } from "@/components/common/tables/users-table/columns"
-import { DataTable } from "@/components/common/tables/users-table/data-table"
+
 import AdminHeader from "@/components/common/header/admin-header"
-import { prisma } from "@/lib/prisma"
+// import { prisma } from "@/lib/prisma"
 
-import { useUser } from "@/lib/hooks/use-user"
+import Table from "@/components/common/tables/users-table/table"
 
-async function getData() {
-  const users = await prisma.user.findMany()
-  return users
-}
+
+// async function getData() {
+//   const users = await prisma.user.findMany()
+//   return users
+// }
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -20,23 +20,10 @@ export const metadata: Metadata = {
  
 
 
-export default async function TaskPage() {
+export default async function Admin() {
 
-  const users = await getData()
+  // const users = await getData()
 
-  const { mutate , user} = useUser()
-
-  const DataFORMATED = user.map((item: { id: any; name: any; email: any; type: any }) => {
-    return{
-      id: item.id,
-      name : item.name , 
-      status: "active",
-      email : item.email , 
-      type: item.type
-    }
-  })
-
-  
 
   return (
     <>
@@ -51,8 +38,8 @@ export default async function TaskPage() {
           </div>
           
         </div>
-        {/* @ts-ignore */}
-        <DataTable data={DataFORMATED} columns={columns} />
+        <Table />
+       
       </div>
     </>
   )

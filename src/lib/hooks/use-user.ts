@@ -24,7 +24,7 @@ export function useUser () {
   
   return {
     mutate , 
-    user: data?.data,
+    user: data?.data?.users,
     isLoading,
     isError: error
   }
