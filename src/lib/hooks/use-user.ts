@@ -30,8 +30,6 @@ export function useUser () {
 
 export const  useSignInUser = async  ({ password , email  }: { password : string ,  email : string }) => {
 
-
-
  const res = await  axios.post('https://chawiii.vercel.app/api/users', {
   action : "is user valide",
   email,
@@ -42,11 +40,8 @@ export const  useSignInUser = async  ({ password , email  }: { password : string
   })
  
   return {
-   
     data : res?.data
   }
-
-  
 }
 
 export function useSignin () {
@@ -62,3 +57,24 @@ export function useSignin () {
     isError: error
   }
 }
+
+export const  addNewUser = async  ({ password , email , bio , type ,  }: { 
+  password : string ,
+  email : string ,
+  bio : string  , 
+  type : string
+  }) => {
+
+  const res = await  axios.post('https://chawiii.vercel.app/api/users', {
+   action : "add user",
+   email,
+   password,
+   bio , 
+   type 
+   }).catch(err => {
+     console.error(err)
+   })
+   return {
+     data : res?.data
+   }
+ }

@@ -13,8 +13,30 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { addNewUser } from "@/lib/hooks/use-user"
+import { useState } from "react"
 
 export function UserAdd() {
+
+    const [inputs , setInputs] = useState({
+        name : "",
+        password : "" ,
+        email : "", 
+        bio : "",
+        type : "client",
+    })
+
+    const handleSubmit = async  () => {
+         addNewUser({
+            bio : inputs.bio , 
+            email : inputs.email , 
+            password : inputs.password , 
+            type : inputs.type
+        }).then(res => {
+            window.location.reload()
+        })
+    }
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -32,24 +54,38 @@ export function UserAdd() {
             <Label htmlFor="name" className="text-right">
               Name
             </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
+            <Input 
+               id="name"
+                value={inputs.name}
+                onChange={e => setInputs({...inputs , name : e.target.value})}
+               className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
               password
             </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
+            <Input 
+                value={inputs.password}
+                id="PASSWORD" 
+                onChange={e => setInputs({...inputs , name : e.target.value})}
+                className="col-span-3" 
+             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
               bio
             </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
+            <Input 
+                 value={inputs.bio}
+                 onChange={e => setInputs({...inputs , name : e.target.value})}
+                 id="username" 
+                
+                 className="col-span-3" />
           </div>
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button onClick={handleSubmit}>Créer un utilisateur</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>
