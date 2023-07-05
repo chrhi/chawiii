@@ -1,7 +1,19 @@
 import { create } from 'zustand'
 
-const useStore = create((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-}))
+type OpenModel ={
+    id : string,
+    showModel: boolean,
+    setShowModel : (input :boolean) => void,
+    setId : (input:string) => void,
+   
+}
+export const openUpdateModel = create<OpenModel>(
+
+    (set) => ({
+        id : "",
+        showModel:false,
+        setShowModel:(input :boolean ) => set({showModel : input}),
+        setId : (input : string) => set({id : input}),
+       
+    }),
+)

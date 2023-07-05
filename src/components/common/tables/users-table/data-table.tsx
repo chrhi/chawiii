@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { UserAdd } from "../../user-add"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -32,6 +33,7 @@ export function DataTable<TData, TValue>({
   })
 
   return (
+    <>
     <div className="rounded-md border">
       <Table>
         <TableHeader>
@@ -75,6 +77,11 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      
     </div>
+    <div className="w-full  flex justify-end items-center h-[10px]">
+    <UserAdd />
+  </div>
+  </>
   )
 }

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { UserNav } from '../tables/users-table/user-nav'
+
 import Image from 'next/image'
 import logo from "@/assets/lgog.png"
 import { Button } from '@/components/ui/button'
@@ -30,7 +30,7 @@ const CommercialHeader: FC<commercialheaderAbdullahProps> = ({}) => {
           </Button>
 
         </div>
-            <UserNav />
+        
     </div>
   </div>
 }

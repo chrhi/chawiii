@@ -6,8 +6,7 @@ import { z } from "zod"
 
 import { columns } from "@/components/common/tables/users-table/columns"
 import { DataTable } from "@/components/common/tables/users-table/data-table"
-import { UserNav } from "@/components/common/tables/users-table/user-nav"
-import { taskSchema } from "@/components/common/tables/users-table/data/schema"
+
 import CommercialHeader from "@/components/common/header/commercial-header"
 
 export const metadata: Metadata = {
@@ -15,31 +14,10 @@ export const metadata: Metadata = {
   description: "A task and issue tracker build using Tanstack Table.",
 }
 
-// Simulate a database read for tasks.
-async function getTasks() {
- 
 
-  const tasks = [
-    {
-      "id": "TASK-8782",
-      "title": "You can't compress the program without quantifying the open-source SSD pixel!",
-      "status": "in progress",
-      "label": "documentation",
-      "priority": "medium"
-    },
-    {
-      "id": "TASK-7878",
-      "title": "Try to calculate the EXE feed, maybe it will index the multi-byte pixel!",
-      "status": "backlog",
-      "label": "documentation",
-      "priority": "medium"
-    }]
-
-  return z.array(taskSchema).parse(tasks)
-}
 
 export default async function TaskPage() {
-  const tasks = await getTasks()
+  
 
   return (
     <>
@@ -54,7 +32,7 @@ export default async function TaskPage() {
           </div>
           
         </div>
-        <DataTable data={tasks} columns={columns} />
+        {/* <DataTable data={tasks} columns={columns} /> */}
       </div>
     </>
   )
