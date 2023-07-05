@@ -102,6 +102,18 @@ export function UserAdd() {
              />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="PASSWORD" className="text-right">
+             email
+            </Label>
+            <Input 
+                value={inputs.email}
+                id="PASSWORD" 
+                type="email"
+                onChange={e => setInputs({...inputs , email : e.target.value})}
+                className="col-span-3" 
+             />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="bio" className="text-right">
               bio
             </Label>
