@@ -67,7 +67,8 @@ export function UserAdd() {
             <Input 
                 value={inputs.password}
                 id="PASSWORD" 
-                onChange={e => setInputs({...inputs , name : e.target.value})}
+                type="password"
+                onChange={e => setInputs({...inputs , password : e.target.value})}
                 className="col-span-3" 
              />
           </div>
@@ -77,7 +78,7 @@ export function UserAdd() {
             </Label>
             <Input 
                  value={inputs.bio}
-                 onChange={e => setInputs({...inputs , name : e.target.value})}
+                 onChange={e => setInputs({...inputs , bio : e.target.value})}
                  id="username" 
                 
                  className="col-span-3" />
