@@ -34,3 +34,12 @@ model Report {
   CreatedAt    DateTime  @default(now())
   @@index([id])
 }
+
+model Request {
+  id           String    @id @default(uuid())
+  title        String? 
+  description String?  @db.LongText
+  Date         DateTime?
+  CreatedAt    DateTime  @default(now())
+  @@index([id])
+}

@@ -26,15 +26,18 @@ export async function POST(request: Request) {
         error : "you need to provide an action"
     })
     } 
-    if(type !== "commercial" || type !== "client"){
-      return NextResponse.json({
-        from : "abdullah ",
-        message : "the api is working",
-        error : "the type can be client or  commercial only"
-    })
-    }
+   
 
     if(action === "add user"){
+
+      if(type !== "commercial" || type !== "client"){
+        return NextResponse.json({
+          from : "abdullah ",
+          message : "the api is working",
+          error : "the type can be client or  commercial only"
+      })
+      }
+      
       const user_just_created  = await prisma.user.create({
         data : {
           type : type, //it can be client or  commercial , 
