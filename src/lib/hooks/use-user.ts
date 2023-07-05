@@ -58,7 +58,8 @@ export function useSignin () {
   }
 }
 
-export const  addNewUser = async  ({ password , email , bio , type ,  }: { 
+export const  addNewUser = async  ({ password , email , bio , type , name }: { 
+  name : string,
   password : string ,
   email : string ,
   bio : string  , 
@@ -70,7 +71,8 @@ export const  addNewUser = async  ({ password , email , bio , type ,  }: {
    email,
    password,
    bio , 
-   type 
+   type ,
+   name
    }).catch(err => {
      console.error(err)
    })

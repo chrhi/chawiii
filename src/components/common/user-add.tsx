@@ -39,6 +39,7 @@ export function UserAdd() {
 
     const handleSubmit = async  () => {
          addNewUser({
+            name : inputs.name , 
             bio : inputs.bio , 
             email : inputs.email , 
             password : inputs.password , 
@@ -62,15 +63,18 @@ export function UserAdd() {
         </SheetHeader>
         <div className="grid gap-4 py-4">
         <div className="grid grid-cols-4 items-center gap-4">
-          <Select>
+           <Label htmlFor="name" className="text-right">
+              Type
+            </Label>
+          <Select onValueChange={(value) => setInputs({...inputs , type : value})} defaultValue="client">
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Sélectionnez un type" />
                 </SelectTrigger>
                 <SelectContent>
                  <SelectGroup>
                    <SelectLabel>les types</SelectLabel>
-                   <SelectItem value="apple">client</SelectItem>
-                   <SelectItem value="banana">commercial</SelectItem>
+                   <SelectItem value="client">client</SelectItem>
+                   <SelectItem value="commercial">commercial</SelectItem>
                  </SelectGroup>
                 </SelectContent>
           </Select>
