@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { user_valide } from './auth-logic'
 
 export async function GET(request: Request) {
 
@@ -16,14 +17,61 @@ export async function POST(request: Request) {
 
     console.log("this route is working")
 
-    const body = await request.json()
+    const {action , email , name , password , id } = await request.json()
 
- 
-    
-  return NextResponse.json({
-    from : "abdullah ",
-    message : "the api is working",
-    body
-})
+    if(!action ){
+      return NextResponse.json({
+        from : "abdullah ",
+        message : "the api is working",
+        error : "you need to provide an action"
+    })
+    } 
+
+    if(action === "add user"){
+      const user_just_created  = await prisma.user.create({
+        data : {
+          type : "admin", //it can be client or  commercial , 
+          bio : "", 
+          email : email, 
+          name : name, 
+          image : "https://avatars.githubusercontent.com/u/116351398?s=400&u=e898faa42ed37fa1fbcfce49e92366221ebad9b8&v=4", 
+          password 
+        }
+      })
+         return NextResponse.json({
+                from : "abdullah ",
+                message : "user has been created",
+                "user_created" : user_just_created
+          })
+    }
+    if(action === "is user valide"){
+      const ok = await user_valide({email , password})
+      if(ok) {
+        const user = await prisma.user.findUnique({
+          where : {
+              email
+          }
+       })
+  
+        return NextResponse.json({
+          from : "abdullah ",
+          message : "the user is valide",
+          valide : true, 
+          user 
+      })
+      }else{
+        return NextResponse.json({
+          from : "abdullah ",
+          message : "the user is not  valide",
+          valide : false
+      })
+      }
+    }
+
+    return NextResponse.json({
+        from : "abdullah ",
+        message : "the api is working but the provided action not working ",
+        action : action
+    })
 }
 
