@@ -65,7 +65,7 @@ export const  addNewUser = async  ({ password , email , bio , type ,  }: {
   type : string
   }) => {
 
-  const res = await  axios.post('https://chawiii.vercel.app/api/users', {
+  const res = await  axios.post(process.env.NODE_ENV === "development" ? "http://localhost:3000/api/users" :"https://chawiii.vercel.app/api/users", {
    action : "add user",
    email,
    password,
