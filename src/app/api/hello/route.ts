@@ -4,18 +4,7 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(request: Request) {
 
-  
-  const {action , id , userId , title , description } = await request.json()
 
-  if(!action ){
-    return NextResponse.json({
-      from : "abdullah ",
-      message : "the api is working",
-      error : "you need to provide an action"
-  })
-  } 
-
-  if(action === "get all requests"){
     const requests = await prisma.request.findMany()
 
     return NextResponse.json({
@@ -23,36 +12,7 @@ export async function GET(request: Request) {
       message : "here are all the requests", 
       requests
    })
-  }
-
-  if(action === "get all requests of user"){
-    const requests = await prisma.request.findMany({
-      where :{
-        userId
-      }
-    })
-
-    return NextResponse.json({
-      from : "abdullah ",
-      message : "here are all the requests", 
-      requests
-   })
-  }
-
-  if(action === "get one request"){
-    const requests = await prisma.request.findMany({
-      where :{
-        id
-      }
-    })
-
-    return NextResponse.json({
-      from : "abdullah ",
-      message : "here are all the users", 
-      requests
-   })
-  }
-
+  
   
 
 

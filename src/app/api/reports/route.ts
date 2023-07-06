@@ -4,13 +4,8 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(request: Request) {
 
-  const {action , title , ClientInformation , Date , Details , Request , id  , userId} = await request.json()
 
- const reports = await prisma.report.findMany({
-  where:{
-    userId
-  }
- })
+ const reports = await prisma.report.findMany()
 
   return NextResponse.json({
     from : "abdullah ",
