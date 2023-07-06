@@ -4,20 +4,65 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(request: Request) {
 
- const reports = await prisma.report.findMany()
+  
+  const {action , id , userId , title , description } = await request.json()
 
-  return NextResponse.json({
-    from : "abdullah ",
-    message : "here are all the users", 
-    reports
- })
+  if(!action ){
+    return NextResponse.json({
+      from : "abdullah ",
+      message : "the api is working",
+      error : "you need to provide an action"
+  })
+  } 
+
+  if(action === "get all requests"){
+    const requests = await prisma.request.findMany()
+
+    return NextResponse.json({
+      from : "abdullah ",
+      message : "here are all the requests", 
+      requests
+   })
+  }
+
+  if(action === "get all requests of user"){
+    const requests = await prisma.request.findMany({
+      where :{
+        userId
+      }
+    })
+
+    return NextResponse.json({
+      from : "abdullah ",
+      message : "here are all the requests", 
+      requests
+   })
+  }
+
+  if(action === "get one request"){
+    const requests = await prisma.request.findMany({
+      where :{
+        id
+      }
+    })
+
+    return NextResponse.json({
+      from : "abdullah ",
+      message : "here are all the users", 
+      requests
+   })
+  }
+
+  
+
+
 }
 
 export async function POST(request: Request) {
 
-    console.log("this route is working")
+   
 
-    const {action , title , ClientInformation , Date , Details , Request , id } = await request.json()
+    const {action , id , userId , title , description } = await request.json()
 
     if(!action ){
       return NextResponse.json({
@@ -26,49 +71,55 @@ export async function POST(request: Request) {
         error : "you need to provide an action"
     })
     } 
+   
 
-    if(action === "create report"){
-      const report  = await prisma.report.create({
+    if(action === "create request"){
+      const request_just_created  = await prisma.request.create({
         data : {
-          title , ClientInformation  , Details , Request 
-          
+         description , 
+         title , 
+         userId, 
         }
       })
          return NextResponse.json({
                 from : "abdullah ",
-                message : "report has been created",
-                "report created" : report,
-               
-          })
-    }
-    if(action === "update report"){
-      const report  = await prisma.report.update({
-        data : {
-          title , ClientInformation ,  Details , Request 
-          
-        },
-        where : {id}
-      })
-         return NextResponse.json({
-                from : "abdullah ",
-                message : "report has been updated",
-                "report updated" : report,
-          })
-    }
-    if(action === "delete report"){
-      const report  = await prisma.report.delete({
-        where : {id}
-      })
-         return NextResponse.json({
-                from : "abdullah ",
-                message : "report has been updated",
-                "report deleted" : report,
+                message : "request has been created",
+                "request created" : request_just_created
           })
     }
 
+    if(action === "update request"){
+      const request_just_created  = await prisma.request.update({
+        data : {
+         description , 
+         title , 
+         userId, 
+        },
+        where:{id}
+      })
+      return NextResponse.json({
+        from : "abdullah ",
+        message : "request has been updated",
+        "request updated" : request_just_created
+      })
+    }
+
+    if(action === "delete request"){
+      const request_just_created  = await prisma.request.delete({
+       
+        where:{id}
+      })
+      return NextResponse.json({
+        from : "abdullah ",
+        message : "request has been deleted",
+        "request deleted" : request_just_created
+      })
+    }
+    
     return NextResponse.json({
         from : "abdullah ",
         message : "the api is working but the provided action not working ",
         action : action
     })
 }
+

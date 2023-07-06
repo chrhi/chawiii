@@ -490,7 +490,7 @@ The base URL for making requests is: `https://chawiii.vercel.app/api`
 
 #### Get All Requests
 
-- **URL**: `/requests`
+- **URL**: `/hello`
 - **Method**: `GET`
 - **Description**: Retrieves a list of all requests.
 - **Request Parameters**:
@@ -502,7 +502,7 @@ The base URL for making requests is: `https://chawiii.vercel.app/api`
 
 #### Get All Requests of a User
 
-- **URL**: `/requests`
+- **URL**: `/hello`
 - **Method**: `GET`
 - **Description**: Retrieves a list of all requests associated with a specific user.
 - **Request Parameters**:
@@ -515,7 +515,7 @@ The base URL for making requests is: `https://chawiii.vercel.app/api`
 
 #### Get a Single Request
 
-- **URL**: `/requests`
+- **URL**: `/hello`
 - **Method**: `GET`
 - **Description**: Retrieves a single request based on the provided ID.
 - **Request Parameters**:
@@ -530,7 +530,7 @@ The base URL for making requests is: `https://chawiii.vercel.app/api`
 
 #### Create a Request
 
-- **URL**: `/requests`
+- **URL**: `/hello`
 - **Method**: `POST`
 - **Description**: Creates a new request.
 - **Request Body**:
@@ -545,7 +545,7 @@ The base URL for making requests is: `https://chawiii.vercel.app/api`
 
 #### Update a Request
 
-- **URL**: `/requests`
+- **URL**: `/hello`
 - **Method**: `POST`
 - **Description**: Updates an existing request.
 - **Request Body**:
@@ -561,7 +561,7 @@ The base URL for making requests is: `https://chawiii.vercel.app/api`
 
 #### Delete a Request
 
-- **URL**: `/requests`
+- **URL**: `/hello`
 - **Method**: `POST`
 - **Description**: Deletes an existing request.
 - **Request Body**:
