@@ -478,10 +478,109 @@ If an invalid action is provided or any required parameters are missing, the API
 Please ensure that you handle the requests and responses appropriately based on your application's requirements.
 
 ---
+## API Documentation - Request Endpoint
 
-Feel free to modify this documentation to fit your project's needs and keep it up to date with any changes to the API endpoints or functionality.
+This documentation provides details on how to use the Request endpoint in the Butter API. This endpoint allows you to manage requests. The API is built using Next.js with a Prisma database.
 
-Happy coding!
+### Base URL
+
+The base URL for making requests is: `https://chawiii.vercel.app/api`
+
+### GET Requests
+
+#### Get All Requests
+
+- **URL**: `/requests`
+- **Method**: `GET`
+- **Description**: Retrieves a list of all requests.
+- **Request Parameters**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "get all requests".
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `requests`: An array of objects, each representing a request. Each request object contains details such as `id`, `userId`, `title`, and `description`.
+
+#### Get All Requests of a User
+
+- **URL**: `/requests`
+- **Method**: `GET`
+- **Description**: Retrieves a list of all requests associated with a specific user.
+- **Request Parameters**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "get all requests of user".
+  - `userId` (required): The ID of the user.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `requests`: An array of objects, each representing a request. Each request object contains details such as `id`, `userId`, `title`, and `description`.
+
+#### Get a Single Request
+
+- **URL**: `/requests`
+- **Method**: `GET`
+- **Description**: Retrieves a single request based on the provided ID.
+- **Request Parameters**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "get one request".
+  - `id` (required): The ID of the request.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `requests`: An array containing a single object representing the request. The request object contains details such as `id`, `userId`, `title`, and `description`.
+
+### POST Requests
+
+#### Create a Request
+
+- **URL**: `/requests`
+- **Method**: `POST`
+- **Description**: Creates a new request.
+- **Request Body**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "create request".
+  - `userId` (required): The ID of the user associated with the request.
+  - `title` (required): The title of the request.
+  - `description` (required): The description of the request.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `request created`: An object representing the newly created request. It contains details such as `id`, `userId`, `title`, and `description`.
+
+#### Update a Request
+
+- **URL**: `/requests`
+- **Method**: `POST`
+- **Description**: Updates an existing request.
+- **Request Body**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "update request".
+  - `id` (required): The ID of the request to be updated.
+  - `userId` (required): The ID of the user associated with the request.
+  - `title` (required): The updated title of the request.
+  - `description` (required): The updated description of the request.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `request updated`: An object representing the updated request. It contains details such as `id`, `userId`, `title`, and `description`.
+
+#### Delete a Request
+
+- **URL**: `/requests`
+- **Method**: `POST`
+- **Description**: Deletes an existing request.
+- **Request Body**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "delete request".
+  - `id` (required): The ID of the request to be deleted.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `request deleted`: An object representing the deleted request. It contains details such as `id`, `userId`, `title`, and `description`.
+
+### Error Handling
+
+If an invalid action is provided or any required parameters are missing, the API will respond with an error message.
+
+Please ensure that you handle the requests and responses appropriately based on your application's requirements.
+
+---
+
+
 
 
 
