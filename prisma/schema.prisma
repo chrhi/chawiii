@@ -20,6 +20,8 @@ model User {
   bio           String?
   email         String?   @unique
   image         String?
+  Report        Report[]
+  Request       Request[]
 
 }
 
@@ -27,19 +29,23 @@ model User {
 model Report {
   id           String    @id @default(uuid())
   title        String? 
+  userId       String
   ClientInformation String?  @db.LongText
-  Date         DateTime?
   Details      String?
   Request      String?
   CreatedAt    DateTime  @default(now())
+  user          User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([id])
+  @@index([userId])
 }
 
 model Request {
   id           String    @id @default(uuid())
   title        String? 
+  userId       String
   description String?  @db.LongText
-  Date         DateTime?
   CreatedAt    DateTime  @default(now())
+  user          User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([id])
+  @@index([userId])
 }

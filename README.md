@@ -297,5 +297,191 @@ The API response will be in JSON format and will contain the following propertie
 }
 ```
 
-Please note that this documentation assumes that the necessary Prisma setup and logic for report management are already in place. Ensure that you handle report creation, updating, and deletion appropriately based on your specific project's requirements. Feel free to modify this documentation as needed to fit your project's needs and keep it up to date with any changes to the API endpoints or functionality. Happy coding!
+
+## API Documentation request sections (les demandes)
+
+
+
+### Base URL
+
+The base URL for making requests is: `https://chawiii.vercel.app/api`
+
+### GET Requests
+
+#### Get All Requests
+
+- **URL**: `/requests`
+- **Method**: `GET`
+- **Description**: Retrieves a list of all requests.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `requests`: An array of objects, each representing a request. Each request object contains details such as `id`, `userId`, `title`, and `description`.
+
+#### Get All Requests of a User
+
+- **URL**: `/requests`
+- **Method**: `GET`
+- **Description**: Retrieves a list of all requests associated with a specific user.
+- **Request Parameters**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "get all requests of user".
+  - `userId` (required): The ID of the user.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `requests`: An array of objects, each representing a request. Each request object contains details such as `id`, `userId`, `title`, and `description`.
+
+#### Get a Single Request
+
+- **URL**: `/requests`
+- **Method**: `GET`
+- **Description**: Retrieves a single request based on the provided ID.
+- **Request Parameters**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "get one request".
+  - `id` (required): The ID of the request.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `requests`: An array containing a single object representing the request. The request object contains details such as `id`, `userId`, `title`, and `description`.
+
+### POST Requests
+
+#### Create a Request
+
+- **URL**: `/requests`
+- **Method**: `POST`
+- **Description**: Creates a new request.
+- **Request Body**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "create request".
+  - `userId` (required): The ID of the user associated with the request.
+  - `title` (required): The title of the request.
+  - `description` (required): The description of the request.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `request created`: An object representing the newly created request. It contains details such as `id`, `userId`, `title`, and `description`.
+
+#### Update a Request
+
+- **URL**: `/requests`
+- **Method**: `POST`
+- **Description**: Updates an existing request.
+- **Request Body**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "update request".
+  - `id` (required): The ID of the request to be updated.
+  - `userId` (required): The ID of the user associated with the request.
+  - `title` (required): The updated title of the request.
+  - `description` (required): The updated description of the request.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `request updated`: An object representing the updated request. It contains details such as `id`, `userId`, `title`, and `description`.
+
+#### Delete a Request
+
+- **URL**: `/requests`
+- **Method**: `POST`
+- **Description**: Deletes an existing request.
+- **Request Body**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "delete request".
+  - `id` (required): The ID of the request to be deleted.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `request deleted`: An object representing the deleted request. It contains details such as `id`, `userId`, `title`, and `description`.
+
+### Error Handling
+
+If an invalid action is provided or any required parameters are missing, the API will respond with an error message.
+
+Please ensure that you handle the requests and responses appropriately based on your application's requirements.
+
+---
+## API Documentation - Updated Version of the Report Endpoint
+
+This documentation provides details on the updated version of the report endpoint in the Butter API. This endpoint allows you to manage reports. The API is built using Next.js with a Prisma database.
+
+### Base URL
+
+The base URL for making requests is: `https://chawiii.vercel.app/api`
+
+### GET Requests
+
+#### Get All Reports
+
+- **URL**: `/reports`
+- **Method**: `GET`
+- **Description**: Retrieves a list of all reports associated with a specific user.
+- **Request Parameters**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "get all reports".
+  - `userId` (required): The ID of the user associated with the reports.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `reports`: An array of objects, each representing a report. Each report object contains details such as `id`, `title`, `ClientInformation`, `Date`, `Details`, `Request`, and `userId`.
+
+### POST Requests
+
+#### Create a Report
+
+- **URL**: `/reports`
+- **Method**: `POST`
+- **Description**: Creates a new report.
+- **Request Body**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "create report".
+  - `userId` (required): The ID of the user associated with the report.
+  - `title` (required): The title of the report.
+  - `ClientInformation` (required): Information related to the client.
+  - `Date` (required): The date of the report.
+  - `Details` (required): Additional details or description of the report.
+  - `Request` (required): Any specific request or action required for the report.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `report created`: An object representing the newly created report. It contains details such as `id`, `title`, `ClientInformation`, `Date`, `Details`, `Request`, and `userId`.
+
+#### Update a Report
+
+- **URL**: `/reports`
+- **Method**: `POST`
+- **Description**: Updates an existing report.
+- **Request Body**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "update report".
+  - `id` (required): The ID of the report to be updated.
+  - `title` (required): The updated title of the report.
+  - `ClientInformation` (required): The updated client information related to the report.
+  - `Date` (required): The updated date of the report.
+  - `Details` (required): The updated details or description of the report.
+  - `Request` (required): The updated specific request or action required for the report.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `report updated`: An object representing the updated report. It contains details such as `id`, `title`, `ClientInformation`, `Date`, `Details`, `Request`, and `userId`.
+
+#### Delete a Report
+
+- **URL**: `/reports`
+- **Method**: `POST`
+- **Description**: Deletes an existing report.
+- **Request Body**:
+  - `action` (required): A string indicating the action to be performed. Supported value: "delete report".
+  - `id` (required): The ID of the report to be deleted.
+- **Response Format**:
+  - `from`: A string indicating the API's author (in this case, "abdullah").
+  - `message`: A message indicating the success of the request.
+  - `report deleted`: An object representing the deleted report. It contains details such as `id`, `title`, `ClientInformation`, `Date`, `Details`, `Request`, and `userId`.
+
+### Error Handling
+
+If an invalid action is provided or any required parameters are missing, the API will respond with an error message.
+
+Please ensure that you handle the requests and responses appropriately based on your application's requirements.
+
+---
+
+Feel free to modify this documentation to fit your project's needs and keep it up to date with any changes to the API endpoints or functionality.
+
+Happy coding!
+
+
 

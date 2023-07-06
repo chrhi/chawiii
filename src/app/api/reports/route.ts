@@ -4,7 +4,13 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET(request: Request) {
 
- const reports = await prisma.report.findMany()
+  const {action , title , ClientInformation , Date , Details , Request , id  , userId} = await request.json()
+
+ const reports = await prisma.report.findMany({
+  where:{
+    userId
+  }
+ })
 
   return NextResponse.json({
     from : "abdullah ",
@@ -17,7 +23,7 @@ export async function POST(request: Request) {
 
     console.log("this route is working")
 
-    const {action , title , ClientInformation , Date , Details , Request , id } = await request.json()
+    const {action , title , ClientInformation , Date , Details , Request , id  , userId} = await request.json()
 
     if(!action ){
       return NextResponse.json({
@@ -30,7 +36,7 @@ export async function POST(request: Request) {
     if(action === "create report"){
       const report  = await prisma.report.create({
         data : {
-          title , ClientInformation , Date , Details , Request 
+          title , ClientInformation  , Details , Request , userId
           
         }
       })
@@ -44,7 +50,7 @@ export async function POST(request: Request) {
     if(action === "update report"){
       const report  = await prisma.report.update({
         data : {
-          title , ClientInformation , Date , Details , Request 
+          title , ClientInformation  , Details , Request 
           
         },
         where : {id}

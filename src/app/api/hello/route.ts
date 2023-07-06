@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     if(action === "create report"){
       const report  = await prisma.report.create({
         data : {
-          title , ClientInformation , Date , Details , Request 
+          title , ClientInformation  , Details , Request 
           
         }
       })
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     if(action === "update report"){
       const report  = await prisma.report.update({
         data : {
-          title , ClientInformation , Date , Details , Request 
+          title , ClientInformation ,  Details , Request 
           
         },
         where : {id}
