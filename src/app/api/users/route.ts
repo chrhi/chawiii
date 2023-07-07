@@ -13,11 +13,11 @@ export async function GET(request: Request) {
  })
 }
 
-export async function POST(request: Request) {
+ export async function POST(request: Request) {
 
     console.log("this route is working")
 
-    const {action , email , name , password , id , type , bio } = await request.json()
+    const {action , email , password  } = await request.json()
 
     if(!action ){
       return NextResponse.json({
