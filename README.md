@@ -1,6 +1,6 @@
 # API Documentation
 
-Welcome to the API documentation for the **chawiii** service. This API allows you to perform various actions related to users, services, and reports. The base URL for all API endpoints is `https://chawiii.vercel.app/api/`.
+Welcome to the API documentation for the **chawiii** service. This API allows you to perform various actions related to users, services, and reports. The base URL for all API endpoints is `https://chawiii.vercel.app/api/rayan`.
 
 ## Supported Actions
 
