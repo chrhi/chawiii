@@ -21,11 +21,8 @@ model User {
   email         String?   @unique
   image         String?
   emailVerified DateTime?
-  accounts      Account[]
-  sessions      Session[]
   Report        Report[]
   Request       Request[]
-
 }
 
 
@@ -33,6 +30,7 @@ model Report {
   id           String    @id @default(uuid())
   title        String? 
   userId       String
+  Following    String?
   ClientInformation String?  @db.LongText
   Details      String?
   Request      String?
@@ -53,43 +51,25 @@ model Request {
   @@index([userId])
 }
 
-
-model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  @@index([id])
-  @@index([userId])
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
+model Deal {
+  id           String    @id @default(uuid())
   userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ServiceId    String
+  title        String
+  CreatedAt    DateTime  @default(now())
   @@index([id])
-  @@index([userId])
+}
+
+model Service {
+  id           String    @id @default(uuid())
+  title        String? 
+  description  String?  @db.LongText
+  CreatedAt    DateTime  @default(now())
+  @@index([id])
 }
 
 
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
 
-  @@unique([identifier, token])
-}
+
+

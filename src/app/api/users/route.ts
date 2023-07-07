@@ -28,27 +28,7 @@ export async function POST(request: Request) {
     } 
    
 
-    if(action === "add user"){
-
-      
-      
-      const user_just_created  = await prisma.user.create({
-        data : {
-          type : type || "client", //it can be client or  commercial , 
-          bio , 
-          email , 
-          name , 
-          image : "https://avatars.githubusercontent.com/u/116351398?s=400&u=e898faa42ed37fa1fbcfce49e92366221ebad9b8&v=4", 
-          password 
-        }
-      })
-         return NextResponse.json({
-                from : "abdullah ",
-                message : "user has been created",
-                "user_created" : user_just_created
-          })
-    }
-    if(action === "is user valide"){
+    if(action === "auth"){
       const ok = await user_valide({email , password})
       if(ok) {
         const user = await prisma.user.findUnique({
@@ -67,7 +47,8 @@ export async function POST(request: Request) {
         return NextResponse.json({
           from : "abdullah ",
           message : "the user is not  valide",
-          valide : false
+          valide : false,
+          user : null
       })
       }
     }
