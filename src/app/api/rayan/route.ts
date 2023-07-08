@@ -67,6 +67,29 @@ export async function POST(request: Request) {
         request
        })
      }
+     if(action === "get client services"){
+          //this will get all the id of the services
+         const deals = await prisma.deal.findMany({
+          where :{
+            userId 
+          }
+         })
+
+         const services = await prisma.service.findMany()
+
+         const  data = deals.map(async (item) => {
+            const clientServices = services.filter(service => service.id === item.ServiceId )
+            return clientServices
+         })
+
+         return   NextResponse.json({
+          from : "abdullah ",
+          message : "here are all the services that this client has ",
+          services : data
+         })
+
+     }
+
      if(action === "get user report"){
 
       const reports = await prisma.report.findMany({

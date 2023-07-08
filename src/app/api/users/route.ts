@@ -13,11 +13,26 @@ export async function GET(request: Request) {
  })
 }
 
+const getClientEmployeens = async  (id : string) => {
+     //this will get all the id of the services
+     const deals = await prisma.deal.findMany({
+      where :{
+        id 
+      }
+     })
+     const users = await prisma.user.findMany()
+     const  data =  deals.map(async (item) => {
+        const employee = users.filter(user => user.id === item.id && user.type === 'employee')
+        return employee
+     })
+     return data
+}
+
  export async function POST(request: Request) {
 
     console.log("this route is working")
 
-    const {action , email , password  } = await request.json()
+    const {action , email , password , userId } = await request.json()
 
     if(!action ){
       return NextResponse.json({
@@ -26,6 +41,22 @@ export async function GET(request: Request) {
         error : "you need to provide an action"
     })
     } 
+
+  
+
+    if(action === "get client employees"){
+      //get the services they have 
+      //get the employeen of thoses services 
+      //return them to the requast
+      const data = await getClientEmployeens(userId)
+
+      return NextResponse.json({
+        from : "abdullah ",
+        message : "here are all the employees assigned to the client with that service",
+         data
+    })
+
+    }
    
 
     if(action === "auth"){
