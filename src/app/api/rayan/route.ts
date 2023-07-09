@@ -9,7 +9,8 @@ export async function POST(request: Request) {
         userId ,
         ServiceId ,
         title,
-        description
+        description,
+        employeeId
      
          } = await request.json()
 
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
     } 
    
 
-    if(action === "give service to user"){
+    if(action === "give service to employee"){
         const deal = await prisma.deal.create({
           data :{
             userId   , 
@@ -103,5 +104,32 @@ export async function POST(request: Request) {
         reports
        })
      } 
+
+     if(action === "assign service to employee"){
+      const deal = await prisma.deal.create({
+        data : {
+          userId , 
+          employeeId,
+          ServiceId,
+          title,
+
+        }
+      })
+      return   NextResponse.json({
+        from : "abdullah ",
+        message : "here is the deal's infomations",
+        deal
+       })
+     }
+
+     
+     if(action === "get all services"){
+      const services = await prisma.service.findMany()
+      return   NextResponse.json({
+        from : "abdullah ",
+        message : "here is the deal's infomations",
+        services
+       })
+     }
 }
 

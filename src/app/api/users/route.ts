@@ -32,7 +32,10 @@ const getClientEmployeens = async  (id : string) => {
 
     console.log("this route is working")
 
-    const {action , email , password , userId } = await request.json()
+    const {action  , password , userId ,   bio ,
+      email , 
+      image , 
+      name ,} = await request.json()
 
     if(!action ){
       return NextResponse.json({
@@ -58,6 +61,29 @@ const getClientEmployeens = async  (id : string) => {
 
     }
    
+    
+    if(action === "edit user"){
+
+      const user = await prisma.user.findUnique({where : {id : userId}})
+    
+      const updatedUser =  await prisma.user.update({
+        data :{
+            bio : bio || user?.bio ,
+            email : email || user?.email, 
+            image : image || user?.image, 
+            name : image || user?.name, 
+          },
+        where:{
+          id  : userId
+        }
+      })
+      return NextResponse.json({
+        from : "abdullah ",
+        message : "here are all the employees assigned to the client with that service",
+        updatedUser
+    })
+
+    }
 
     if(action === "auth"){
       const ok = await user_valide({email , password})
