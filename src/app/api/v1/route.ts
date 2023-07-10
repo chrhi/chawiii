@@ -1,20 +1,11 @@
+import { NextRequest } from "next/server";
 
 
 
 
-export async function GET(req : Response){
-
+export async function GET(req : NextRequest){
+    return new Response("wolcom to our api it is made by abdullah " , {status : 200})
 }
 
-export async function POST(req : Response){
-    
-}
 
-export async function PATCH(req : Response){
-    
-}
-
-export async function PUT(req : Response){
-    
-}
 

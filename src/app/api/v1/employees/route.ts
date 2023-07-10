@@ -2,13 +2,13 @@
 
 // i have to see the services i am working on them 
 
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 // i can see my boss
 
 
 
-export async function POST(req : Response){
+export async function POST(req : NextRequest){
     const {ApiKey , action , id } = await req.json()
 
     

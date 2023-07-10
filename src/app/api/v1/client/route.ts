@@ -4,10 +4,10 @@
 // get my employees 
 
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 
-export async function POST(req : Response){
+export async function POST(req : NextRequest){
     const {
          action ,
          id ,
