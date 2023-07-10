@@ -1,613 +1,257 @@
 # API Documentation
 
-Welcome to the API documentation for the **chawiii** service. This API allows you to perform various actions related to users, services, and reports. The base URL for all API endpoints is `https://chawiii.vercel.app/api/rayan`.
+Welcome to the API documentation for the **chawiii** service. This API allows you to perform various actions related to users, services, and reports. The base URL for all API endpoints is `https://chawiii.vercel.app/api/`.
 
-## Supported Actions
+---
 
-### Give Service to User
-Action: `give service to user`
+## Auth
 
-Adds a service to a user's profile.
+Endpoint: `POST /auth`
 
-**Request Example:**
-```json
-POST /rayan
+Authenticates a user by validating the provided email and password.
 
-{
-  "action": "give service to user",
-  "userId": "123456",
-  "ServiceId": "789012",
-  "title": "Service Title"
-}
-```
+### Request
 
-**Response Example:**
+- Method: `POST`
+- Endpoint: `https://chawiii.vercel.app/api/auth`
+- Headers:
+  - Content-Type: `application/json`
+
+Example Request Body:
+
 ```json
 {
-  "from": "abdullah",
-  "message": "note that the userId is the client ID. We add that ID to an array of clients. You can find the updated service version.",
-  "updatedService": {
-    "id": "123456",
-    "ServiceId": "789012",
-    "title": "Service Title"
-  }
+  "ApiKey": "<your-api-key>",
+  "email": "<user-email>",
+  "password": "<user-password>"
 }
 ```
 
-### Get User Services
-Action: `get user services`
+- `ApiKey` (string, required): Your API key for authentication.
+- `email` (string, required): The user's email address.
+- `password` (string, required): The user's password.
 
-Retrieves all services assigned to a user.
+### Response
 
-**Request Example:**
-```json
-POST /rayan
+- Status: `200 OK`, `400 Bad Request`, or `401 Unauthorized`
+- Content-Type: `application/json`
 
-{
-  "action": "get user services",
-  "userId": "123456"
-}
-```
+Example Response (Status: 200 OK):
 
-**Response Example:**
 ```json
 {
-  "from": "abdullah",
-  "message": "note that if you provide the ID of an employee or client, the return will be the assigned services",
-  "updatedService": [
-    {
-      "id": "789012",
-      "title": "Service Title"
-    },
-    {
-      "id": "345678",
-      "title": "Another Service"
-    }
-  ]
+  "id": "<user-id>",
+  "name": "<user-name>",
+  "email": "<user-email>",
+   "and much more , " : "you will see in the request "
 }
 ```
 
-### Ask for a Report
-Action: `ask for a report`
+Example Response (Status: 400 Bad Request):
 
-Creates a new report request.
-
-**Request Example:**
-```json
-POST /rayan
-
-{
-  "action": "ask for a report",
-  "title": "Report Title",
-  "description": "Report Description",
-  "userId": "123456"
-}
-```
-
-**Response Example:**
 ```json
 {
-  "from": "abdullah",
-  "message": "here is the request you have just created",
-  "request": {
-    "id": "987654",
-    "title": "Report Title",
-    "description": "Report Description",
-    "userId": "123456"
-  }
+  "error": "the email is not valid"
 }
 ```
 
-### Get User Reports
-Action: `get user report`
+Example Response (Status: 401 Unauthorized):
 
-Retrieves all reports associated with a user.
-
-**Request Example:**
-```json
-POST /rayan
-
-{
-  "action": "get user report",
-  "userId": "123456"
-}
-```
-
-**Response Example:**
 ```json
 {
-  "from": "abdullah",
-  "message": "here are all the reports",
-  "reports": [
-    {
-      "id": "987654",
-      "title": "Report Title",
-      "description": "Report Description"
-    },
-    {
-      "id": "543210",
-      "title": "Another Report",
-      "description": "Another Description"
-    }
-  ]
+  "error": "Unauthorized"
 }
 ```
 
-Please note that all requests should be made using the `POST` method.
+---
+
+Please note that you need to replace `<your-api-key>` with your actual API key, `<user-email>` with the user's email, and `<user-password>` with the user's password.
 
 
- The  URL for users API endpoints is ` https://chawiii.vercel.app/api/users`.
 
-## Endpoint: `/api`
+---
 
-### Authentication
+## v1/services
 
-Performs user authentication and validates the provided credentials.
+Endpoint: `GET /v1/services`
 
-**URL:** `/api`
+Retrieves all services.
 
-**Method:** `POST`
+### Request
 
-**Request Example:**
+- Method: `GET`
+- Endpoint: `https://chawiii.vercel.app/api/v1/services`
+
+### Response
+
+- Status: `200 OK` or `500 Internal Server Error`
+- Content-Type: `application/json`
+
+Example Response (Status: 200 OK):
+
 ```json
-POST /api
-
-{
-  "action": "auth",
-  "email": "example@example.com",
-  "password": "secretpassword"
-}
+[
+  {
+    "id": "<service-id1>",
+    "title": "<service-title1>",
+    "description": "<service-description1>",
+    "cost": "<service-cost1>",
+    "image": "<service-image1>",
+    "url": "<service-url1>"
+  },
+  {
+    "id": "<service-id2>",
+    "title": "<service-title2>",
+    "description": "<service-description2>",
+    "cost": "<service-cost2>",
+    "image": "<service-image2>",
+    "url": "<service-url2>"
+  },
+  ...
+]
 ```
 
-**Response Example (Valid User):**
-```json
-{
-  "from": "abdullah",
-  "message": "The user is valid",
-  "valid": true,
-  "user": {
-    "id": "123456",
-    "email": "example@example.com",
-    "name": "John Doe"
-  }
-}
-```
+Example Response (Status: 500 Internal Server Error):
 
-**Response Example (Invalid User):**
 ```json
 {
-  "from": "abdullah",
-  "message": "The user is not valid",
-  "valid": false,
-  "user": null
+  "error": "Server error"
 }
 ```
 
-### Error Responses
+---
 
-If the request does not include an action, the API will respond with an error.
+Please note that the actual response will contain an array of service objects, where each service object will have properties such as `id`, `title`, `description`, `cost`, `image`, and `url`.
 
-**Response Example (Missing Action):**
+
+
+---
+
+## v1/client
+
+Endpoint: `POST /v1/client`
+
+Performs various actions related to clients, employees, and services.
+
+### Request
+
+- Method: `POST`
+- Endpoint: `https://chawiii.vercel.app/api/v1/client`
+- Headers:
+  - Content-Type: `application/json`
+
+Example Request Body:
+
 ```json
 {
-  "from": "abdullah",
-  "message": "The API is working",
-  "error": "You need to provide an action"
+  "action": "<action>",
+  "id": "<client-id>",
+  "employeeId": "<employee-id>",
+  "serviceId": "<service-id>"
 }
 ```
 
-If the provided action is not supported, the API will respond with an error indicating the unsupported action.
+- `action` (string, required): The action to perform. Available actions: "get my employees", "get my services", "buy new service", "assign a service to an employee".
+- `id` (string, required): The client ID.
+- `employeeId` (string, required for "assign a service to an employee" action): The employee ID.
+- `serviceId` (string, required for "buy new service" action): The service ID.
 
-**Response Example (Unsupported Action):**
+### Response
+
+- Status: `200 OK`, `400 Bad Request`, or `500 Internal Server Error`
+- Content-Type: `application/json`
+
+Example Response (Status: 200 OK):
+
+```json
+[
+  {
+    "id": "<employee-id1>",
+    "name": "<employee-name1>",
+    "email": "<employee-email1>",
+    "position": "<employee-position1>"
+  },
+  {
+    "id": "<employee-id2>",
+    "name": "<employee-name2>",
+    "email": "<employee-email2>",
+    "position": "<employee-position2>"
+  },
+  ...
+]
+```
+
+Example Response (Status: 400 Bad Request):
+
 ```json
 {
-  "from": "abdullah",
-  "message": "The API is working, but the provided action is not supported",
-  "action": "invalidAction"
+  "error": "Need to provide a valid action",
+  "status": 400
 }
 ```
 
-Please note that all requests to the API should be made using the `POST` method.
+Example Response (Status: 500 Internal Server Error):
 
-## Base URL
-
-The base URL for all API endpoints is `https://your-api-url.com`. Make sure to prepend this URL to the endpoint paths when making requests.
-
-
-## new update 
-
-# API Documentation
-end point is /rayan
-This documentation provides information about the API endpoints and their functionalities. The API is built using the Next.js framework and utilizes the Prisma ORM for database operations.
-
-## Endpoints
-
-### POST `/`
-
-This endpoint handles various actions based on the provided `action` parameter. The expected request payload should be in JSON format.
-
-#### Request Payload
-
-The request payload should include the following parameters:
-
-- `action` (string, required): The action to be performed.
-- `id` (string): The ID parameter.
-- `userId` (string): The user ID parameter.
-- `ServiceId` (string): The service ID parameter.
-- `title` (string): The title parameter.
-- `description` (string): The description parameter.
-- `employeeId` (string): The employee ID parameter.
-
-```javascript
+```json
 {
-  "action": "give service to employee",
-  "id": "example_id",
-  "userId": "example_userId",
-  "ServiceId": "example_ServiceId",
-  "title": "example_title",
-  "description": "example_description",
-  "employeeId": "example_employeeId"
+  "error": "Server error",
+  "status": 500
 }
 ```
 
-#### Response
+---
 
-The response will be in JSON format and may vary depending on the action performed.
+Please note that the actual response will vary based on the performed action and the specific data returned.
 
-##### Example Response
 
-```javascript
+---
+
+## v1/employee
+
+Endpoint: `POST /v1/employee`
+
+Performs various actions related to employees.
+
+### Request
+
+- Method: `POST`
+- Endpoint: `https://chawiii.vercel.app/api/v1/employee`
+- Headers:
+  - Content-Type: `application/json`
+
+Example Request Body:
+
+```json
 {
-  "from": "abdullah",
-  "message": "not that the userid is the client id we add that id to an array of clients, you can find the service updated version",
-  "updatedService": {
-    // Updated service data
-  }
+  "ApiKey": "<your-api-key>",
+  "action": "<action>",
+  "id": "<employee-id>"
 }
 ```
 
-## Actions
+- `ApiKey` (string, required): Your API key for authentication.
+- `action` (string, required): The action to perform. Available actions: "get my services".
+- `id` (string, required): The employee ID.
 
-### Action: "give service to employee"
+### Response
 
-This action assigns a service to an employee.
+- Status: `200 OK`, `400 Bad Request`
+- Content-Type: `text/plain`
 
-#### Request
+Example Response (Status: 200 OK):
 
-- `action`: "give service to employee"
-
-##### Example Request
-
-```javascript
-{
-  "action": "give service to employee",
-  "userId": "example_userId",
-  "ServiceId": "example_ServiceId",
-  "title": "example_title"
-}
+```
+we are working on it so it is not available yet
 ```
 
-#### Response
+Example Response (Status: 400 Bad Request):
 
-The response includes the updated service information.
-
-### Action: "get user services"
-
-This action retrieves services associated with a user.
-
-#### Request
-
-- `action`: "get user services"
-
-##### Example Request
-
-```javascript
-{
-  "action": "get user services",
-  "userId": "example_userId"
-}
+```
+need to provide a valid action
 ```
 
-#### Response
+---
 
-The response includes the services associated with the user.
+Please note that you need to replace `<your-api-key>` with your actual API key, `<action>` with the desired action, and `<employee-id>` with the ID of the employee you want to perform the action for.
 
-### Action: "ask for a report"
 
-This action creates a new report request.
-
-#### Request
-
-- `action`: "ask for a report"
-- `description` (optional): Description of the report request.
-- `title` (optional): Title of the report request.
-- `userId`: ID of the user making the request.
-
-##### Example Request
-
-```javascript
-{
-  "action": "ask for a report",
-  "description": "example_description",
-  "title": "example_title",
-  "userId": "example_userId"
-}
-```
-
-#### Response
-
-The response includes the newly created report request.
-
-### Action: "get client services"
-
-This action retrieves services associated with a client.
-
-#### Request
-
-- `action`: "get client services"
-- `userId`: ID of the client.
-
-##### Example Request
-
-```javascript
-{
-  "action": "get client services",
-  "userId": "example_userId"
-}
-```
-
-#### Response
-
-The response includes the services associated with the client.
-
-### Action: "get user report"
-
-This action retrieves reports associated with a user.
-
-#### Request
-
-- `action`: "get user report"
-- `userId`: ID of the user.
-
-##### Example Request
-
-```javascript
-{
-  "action": "get user report",
-  "userId": "example_userId"
-}
-```
-
-#### Response
-
-The response includes the reports associated with the user.
-
-### Action: "assign service to employee"
-
-This action assigns a service to an employee.
-
-#### Request
-
-- `action`: "assign service to employee"
-- `userId`: ID of the user.
-- `employeeId`: ID of the employee.
-- `ServiceId`: ID of the service.
-- `title`: Title of the service.
-
-##### Example Request
-
-```javascript
-{
-  "action": "assign service to employee",
-  "userId": "example_userId",
-  "employeeId": "example_employeeId",
-  "ServiceId": "example_ServiceId",
-  "title": "example_title"
-}
-```
-
-#### Response
-
-The response includes the deal's information.
-
-### Action: "get all services"
-
-This action retrieves all services.
-
-#### Request
-
-- `action`: "get all services"
-
-##### Example Request
-
-```javascript
-{
-  "action": "get all services"
-}
-```
-
-#### Response
-
-The response includes all the services.
-
-## License
-
-This API is released under the [MIT License](https://opensource.org/licenses/MIT).
-
-# API Documentation
-
-/users
-
-This documentation provides information about the API endpoints and their functionalities. The API is built using the Next.js framework and utilizes the Prisma ORM for database operations.
-
-## Endpoints
-
-### GET `/`
-
-This endpoint retrieves all users from the database.
-
-#### Request
-
-No request payload is required for this endpoint.
-
-#### Response
-
-The response will be in JSON format and will include all the users.
-
-##### Example Response
-
-```javascript
-{
-  "from": "abdullah",
-  "message": "here are all the users",
-  "users": [
-    // User objects
-  ]
-}
-```
-
-### POST `/`
-
-This endpoint handles various actions based on the provided `action` parameter. The expected request payload should be in JSON format.
-
-#### Request Payload
-
-The request payload should include the following parameters:
-
-- `action` (string, required): The action to be performed.
-- `password` (string): The password parameter.
-- `userId` (string): The user ID parameter.
-- `bio` (string): The bio parameter.
-- `email` (string): The email parameter.
-- `image` (string): The image parameter.
-- `name` (string): The name parameter.
-
-```javascript
-{
-  "action": "edit user",
-  "password": "example_password",
-  "userId": "example_userId",
-  "bio": "example_bio",
-  "email": "example_email",
-  "image": "example_image",
-  "name": "example_name"
-}
-```
-
-#### Response
-
-The response will be in JSON format and may vary depending on the action performed.
-
-##### Example Response
-
-```javascript
-{
-  "from": "abdullah",
-  "message": "here are all the employees assigned to the client with that service",
-  "updatedUser": {
-    // Updated user data
-  }
-}
-```
-
-## Actions
-
-### Action: "get client employees"
-
-This action retrieves employees assigned to a client based on their services.
-
-#### Request
-
-- `action`: "get client employees"
-- `userId`: ID of the client.
-
-##### Example Request
-
-```javascript
-{
-  "action": "get client employees",
-  "userId": "example_userId"
-}
-```
-
-#### Response
-
-The response includes the employees assigned to the client.
-
-### Action: "edit user"
-
-This action updates a user's information.
-
-#### Request
-
-- `action`: "edit user"
-- `userId`: ID of the user.
-- `bio` (optional): Updated user's bio.
-- `email` (optional): Updated user's email.
-- `image` (optional): Updated user's image.
-- `name` (optional): Updated user's name.
-
-##### Example Request
-
-```javascript
-{
-  "action": "edit user",
-  "userId": "example_userId",
-  "bio": "example_bio",
-  "email": "example_email",
-  "image": "example_image",
-  "name": "example_name"
-}
-```
-
-#### Response
-
-The response includes the updated user's information.
-
-### Action: "auth"
-
-This action validates a user's credentials.
-
-#### Request
-
-- `action`: "auth"
-- `email`: User's email.
-- `password`: User's password.
-
-##### Example Request
-
-```javascript
-{
-  "action": "auth",
-  "email": "example_email",
-  "password": "example_password"
-}
-```
-
-#### Response
-
-The response includes information about the validity of the user's credentials.
-
-### Action: Default
-
-This action is executed when no valid action is provided.
-
-#### Request
-
-- `action`: Invalid or missing action.
-
-##### Example Request
-
-```javascript
-{
-  "action": "invalid_action"
-}
-```
-
-#### Response
-
-The response includes a message indicating the provided action is not valid.
-
-## License
-
-This API is released under the [MIT License](https://opensource.org/licenses/MIT).
