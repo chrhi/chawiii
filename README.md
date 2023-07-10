@@ -217,7 +217,7 @@ The base URL for all API endpoints is `https://your-api-url.com`. Make sure to p
 ## new update 
 
 # API Documentation
-
+end point is /rayan
 This documentation provides information about the API endpoints and their functionalities. The API is built using the Next.js framework and utilizes the Prisma ORM for database operations.
 
 ## Endpoints
@@ -435,6 +435,8 @@ The response includes all the services.
 This API is released under the [MIT License](https://opensource.org/licenses/MIT).
 
 # API Documentation
+
+/users
 
 This documentation provides information about the API endpoints and their functionalities. The API is built using the Next.js framework and utilizes the Prisma ORM for database operations.
 
