@@ -10,6 +10,12 @@ type Type = {
 export async function register_request ({ status , endPoint ,  responseTime ,  apiKey}:Type){
 
     await prisma.apiRequest.create({
-        
+        data:{
+            //@ts-ignore
+            status,
+            endPoint,
+            responseTime,
+            apiKey
+        }
     })
 }

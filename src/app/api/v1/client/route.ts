@@ -4,10 +4,18 @@
 // get my employees 
 
 import { prisma } from "@/lib/prisma";
+import { register_request } from "@/utils/request-register";
 import { NextRequest, NextResponse } from "next/server";
 
 
 export async function POST(req : NextRequest){
+    
+    await register_request({
+        apiKey : "not provided yet",
+        endPoint :"/v1/client",
+        responseTime :"100ms" , 
+        status :"200 ok"
+    })
     const {
          action ,
          id ,

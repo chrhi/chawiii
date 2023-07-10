@@ -2,6 +2,7 @@
 
 // i have to see the services i am working on them 
 
+import { register_request } from "@/utils/request-register"
 import { NextRequest, NextResponse } from "next/server"
 
 // i can see my boss
@@ -10,6 +11,14 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req : NextRequest){
     const {ApiKey , action , id } = await req.json()
+
+    
+    await register_request({
+        apiKey : "not provided yet",
+        endPoint :"/v1/employee",
+        responseTime :"100ms" , 
+        status :"200 ok"
+    })
 
     
     if(!action){

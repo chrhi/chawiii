@@ -1,9 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import { isValidEmail } from "@/utils";
+import { register_request } from "@/utils/request-register";
 import { NextResponse } from "next/server";
 
 const user_valide = async ({email , password} : {email : string , password : string}) => {
 
+    await register_request({
+        apiKey : "not provided yet",
+        endPoint :"/auth",
+        responseTime :"100ms" , 
+        status :"200 ok"
+    })
     const user = await prisma.user.findUnique({
         where : {
             email
