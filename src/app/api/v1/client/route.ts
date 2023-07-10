@@ -6,13 +6,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// get my services
-
-// buy new service 
-
-// assign a service to an employee 
-
-
 
 export async function POST(req : Response){
     const {
@@ -26,9 +19,17 @@ export async function POST(req : Response){
 
     // inputs validation
 
+    if(!action){
+        return    new NextResponse("need to provid an action" , {status : 400})    
+    }
+
 
     switch(action){
         case  "get my employees" :{
+
+            if(!id){
+                return    new NextResponse("id in the body is required" , {status : 400}) 
+            }
 
             const employees = await prisma.workContract.findMany({
                 where :{
@@ -42,6 +43,9 @@ export async function POST(req : Response){
            
         }
         case  "get my services" :{
+            if(!id){
+                return    new NextResponse("id in the body is required" , {status : 400}) 
+            }
 
             const services = await prisma.deal.findMany({
                 where :{
@@ -56,6 +60,12 @@ export async function POST(req : Response){
            
         }
         case  "buy new service" :{
+            if(!id || !serviceId){
+                return    new NextResponse(`
+                service id is reuired -> serviceId ='jhjere'
+                client is is reuired and it should be like this ->   'id' : 'fkdd,ms'
+                ` , {status : 400}) 
+            }
 
             const serviceAsked = await prisma.service.findFirst({
                 where:{
@@ -66,7 +76,7 @@ export async function POST(req : Response){
             })
         
 
-            const deal = await prisma.deal.create({
+            await prisma.deal.create({
              data :{
                 //@ts-ignore
                 title : serviceAsked?.title ,
@@ -91,6 +101,13 @@ export async function POST(req : Response){
         }
         case  "assign a service to an employee" :{
 
+            if(!id || !employeeId){
+                return    new NextResponse(`
+                employee id is reuired -> employeeId ='jhjere'
+                client is is reuired and it should be like this ->   'id' : 'fkdd,ms'
+                ` , {status : 400}) 
+            }
+
             const askedEmployee = await prisma.user.findUniqueOrThrow({
                 where :{
                     id : employeeId
@@ -101,21 +118,30 @@ export async function POST(req : Response){
 
             const contract = await prisma.workContract.create({
                 data :{
-                    password : askedEmployee
-                }
-            })
+                    password : askedEmployee.type,
+                    type :  askedEmployee.type,
+                     //@ts-ignore
+                    bio :  askedEmployee.bio,
+                    clientId : id , 
+                     //@ts-ignore
+                    email :  askedEmployee.email,
+                    employeeId : employeeId , 
+                     //@ts-ignore
+                    image :  askedEmployee.image,
+                     //@ts-ignore
+                    name :  askedEmployee.name,
 
-            break; 
+                }
+            }).catch(error => {
+                return new NextResponse("server error" , {status : 500})
+            })
+            return    new NextResponse("ok" , {status : 200}) 
+        }
+        default: {
+            return    new NextResponse("need to provid a valid action" , {status : 400})    
         }
     }
 
 }
 
-export async function PATCH(req : Response){
-    
-}
-
-export async function PUT(req : Response){
-    
-}
 
